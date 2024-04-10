@@ -7,6 +7,9 @@
  */
 
 
+
+#define LED 0x20                /* 0b00100000: el bit 5 */
+
 /* puertos de E/S */
 
 /* direccion de PORTB (registro de datos) */
@@ -27,15 +30,20 @@ void esperar() {
 
 /* led_init: configura el puerto b bit 5 como salida */
 void led_init() {
-	/* COMPLETAR */
+    volatile unsigned char *DDR_B = (unsigned char *) 0x24;
+    volatile unsigned char *PUERTO_B = (unsigned char *) 0x25;
+    *(PUERTO_B) &= LED;
+    *(DDR_B) |= LED;
 }
 
 /* led_on: enciende el led conectado al puerto b bit 5 */
 void led_on() {
-	/* COMPLETAR */
+    volatile unsigned char *PUERTO_B = (unsigned char *) 0x25;
+    *(PUERTO_B) |= LED;
 }
 
 /* led_off: apaga el led conectado al puerto b bit 5 */
 void led_off() {
-	/* COMPLETAR */
+    volatile unsigned char *PUERTO_B = (unsigned char *) 0x25;
+    *(PUERTO_B) &= ~LED;
 }
