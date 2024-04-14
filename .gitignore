@@ -9,4 +9,5 @@ _deps
 .idea
 *.o
 *.hex
-
+CMakeLists.txt
+cmake-build-debug
