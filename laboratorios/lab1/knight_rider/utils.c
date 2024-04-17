@@ -24,7 +24,7 @@ volatile unsigned char * pin_b = (unsigned char *) 0x23;
 void esperar() {
 	volatile unsigned long i;
 	/* delay de aprox. 1 segundo */
-	for (i=0; i<450000; i++);
+	for (i=0; i<50000; i++);
 }
 
 /* led_init: configura el puerto b bit 5 como salida */
