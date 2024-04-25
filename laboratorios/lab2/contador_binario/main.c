@@ -7,10 +7,6 @@ volatile unsigned char *puerto_b = (unsigned char *)0x25;
 volatile unsigned char *ddr_b = (unsigned char *)0x24;
 volatile unsigned char *pin_b = (unsigned char *)0x23;
 
-volatile unsigned char *puerto_c = (unsigned char *)0x28;
-volatile unsigned char *ddr_c = (unsigned char *)0x27;
-volatile unsigned char *pin_c = (unsigned char *)0x26;
-
 void init();
 void count(unsigned char counter_max_value);
 void test_button();
