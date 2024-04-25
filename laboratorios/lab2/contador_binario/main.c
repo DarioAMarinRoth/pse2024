@@ -5,6 +5,11 @@
 
 volatile unsigned char *puerto_b = (unsigned char *)0x25;
 volatile unsigned char *ddr_b = (unsigned char *)0x24;
+volatile unsigned char *pin_b = (unsigned char *)0x23;
+
+volatile unsigned char *puerto_c = (unsigned char *)0x28;
+volatile unsigned char *ddr_c = (unsigned char *)0x27;
+volatile unsigned char *pin_c = (unsigned char *)0x26;
 
 void init();
 void count(unsigned char counter_max_value);
@@ -21,21 +26,27 @@ int main(void) {
 
 void init() {
   *(puerto_b) &= 0;
-  *(ddr_b) |= 0b00111110;
+  *(ddr_b) |= 0b00011111;
 }
 
 void count(unsigned char counter_max_value) {
   for (char i = 0; i <= counter_max_value; i++) {
     *(puerto_b) = i;
-    delay_ms(300);
+    delay_ms(150);
     test_button();
+    delay_ms(150);
+    test_button;
   }
 }
 
 void test_button() {
-  if (is_on(button, *(puerto_b))) {
-    delay_ms(10000);
-    while (~is_on(button, *puerto_b)) {
+  if (is_on(button, *(pin_b))) {
+    delay_ms(100);
+    while (is_on(button, *(pin_b))) {
     }
+    delay_ms(100);
+    while (is_on(button, *pin_b) == 0) {
+    }
+    delay_ms(100);
   }
 }
