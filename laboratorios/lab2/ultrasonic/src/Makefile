@@ -1,7 +1,7 @@
 
 CC=avr-gcc
-OBJETOS=ultrasound.o serial.o utils.o
-APP=ultrasound
+OBJETOS=ultrasound.o serial.o utils.o main.o
+APP=ultrasound-app
 CFLAGS=-Os -DF_CPU=16000000UL -mmcu=atmega328p 
 LDFLAGS=-mmcu=atmega328p
 FIRMWARE=imagen.hex
@@ -25,4 +25,4 @@ flash:
 	avrdude -p atmega328p -c arduino -P /dev/ttyUSB0 -b 57600 -D -U flash:w:$(FIRMWARE):i
 	
 clean:
-	rm ultrasound.o $(APP) $(FIRMWARE)
+	rm $(APP) $(FIRMWARE) ultrasound.o utils.o main.o
