@@ -1,6 +1,6 @@
 
 CC=avr-gcc
-OBJETOS=ultrasound.o serial.o
+OBJETOS=ultrasound.o serial.o utils.o
 APP=ultrasound
 CFLAGS=-Os -DF_CPU=16000000UL -mmcu=atmega328p 
 LDFLAGS=-mmcu=atmega328p
