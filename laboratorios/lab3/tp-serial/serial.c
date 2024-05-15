@@ -9,62 +9,40 @@
  *
  **********************************************************************/
 
-#include <stdint.h> /* para los tipos de datos. Ej.: uint8_t */
+#include <stdint.h>
 
-/* Completar la estructura de datos para que se superponga a los registros
-   del periferico de hardware del USART del atmega328, segun sugerido
-   en el apunte */
+#include "operations.h"
+
+#define USART_BAUDRATE 9600
+#define BAUDRATE_PRESCALE 0b01100111
+#define INIT 0b00000011
+#define EN_RX_TX 0b00011000
 
 typedef struct {
-  uint8_t status_control_a; /* ucsr0a USART Control and Status A */
+  uint8_t status_control_a;
   uint8_t status_control_b;
   uint8_t status_control_c;
   uint8_t reserved;
   uint8_t baud_rate_L;
   uint8_t baud_rate_H;
-  uint8_t data_es; /* udr0 i/o data */
+  uint8_t data_es;
 } volatile uart_t;
 
-/* puntero a la estructura de los registros del periferico */
 uart_t *puerto_serial = (uart_t *)(0xc0);
 
-#define USART_BAUDRATE 9600
-#define BAUD_PRESCALE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
-
 void serial_init() {
-  /* Escribir una rutina de inicializacion */
-
-  /* El manual del atmega328p tiene un ejemplo. Adecuarla a C y
-     la estructura de datos */
-
-  /* Configurar los registros High y Low con BAUD_PRESCALE */
-  /* Configurar un frame de 8bits, con un bit de paridad y bit de stop */
-  /* Activar la recepcion y transmicion */
+  puerto_serial->baud_rate_L = (unsigned char)(BAUDRATE_PRESCALE);
+  puerto_serial->baud_rate_H = (unsigned char)(BAUDRATE_PRESCALE >> 8);
+  puerto_serial->status_control_c = INIT;
+  puerto_serial->status_control_b = EN_RX_TX;
 }
 
-/* enviar un byte a traves del del dispositivo inicializado */
 void serial_put_char(char c) {
-  /* Wait until the transmitter is ready for the next character. */
-
-  /* completar con E/S programada */
-  /* Se debe esperar verificando el bit UDREn del registro UCSRnA,
-     hasta que el buffer esté listo para recibir un dato a transmitir */
-
-  // while ( /* completar con E/S programada */ )
-  //     ;
-
-  /* Send the character via the serial port. */
-  /* (escribir el dato al registro de datos de E/S */
+  while (!get_bit(&(puerto_serial->status_control_a), 5));
+  puerto_serial->data_es = c;
 }
 
 char serial_get_char(void) {
-  /* Wait for the next character to arrive. */
-  /* Completar con E/S programada similar a serial_put_char pero
-     utilizando el bit correcto */
-
-  // while ( /* completar con E/S programada */ )
-  //     ;
-
-  // return /* DEBE devolver el valor que se encuentra en el registro de datos
-  // de E/S */
+  while (!get_bit(&(puerto_serial->status_control_a), 7));
+  return puerto_serial->data_es;
 }
