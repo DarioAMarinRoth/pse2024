@@ -18,12 +18,11 @@ El código fuente consiste en 3 archivos:
 
 - Arduino Nano (x1).
 - Sensor ultrasónico HC-SR04 (x1).
-- Resistencia de 10 kΩ (x1).
 
 ### Conexiones del Sensor de Ultrasonido HC-SR04
 
 - **Trigger:** debe conectarse al pin digital 8 (D8) del Arduino (correspondiente al PB1).
-- **Echo (Pin de eco):** debe conectarse al pin digital 9 (D9) del Arduino (correspondiente al PB2). Además, en dicho pin se debe conectar la resistencia de 10 kΩ en configuración de pull-down (a GND).
+- **Echo (Pin de eco):** debe conectarse al pin digital 9 (D9) del Arduino (correspondiente al PB2).
 - **VCC:** debe conectarse al pin de 5V del Arduino Nano.
 - **GND (Tierra):** debe conectarse a uno de los pines de tierra (GND) del Arduino Nano.
 
@@ -43,7 +42,7 @@ sudo apt install minicom
 
 1. Ingresar a la configuración de minicom utilizando el comando `sudo minicom -s`.
 2. En el menú, elegir la opción **Configuración del puerto serie**.
-3. Presionar `a` para modificar el dispositivo serie. El argumento debe ser `/dev/ttyUSB0 `. Presionar `enter` para confirmar la modificación.
+3. Presionar `a` para modificar el dispositivo serie. El argumento debe ser `/dev/ttyUSB0`. Presionar `enter` para confirmar la modificación.
 4. Presionar `e` para acceder a la configuración *Bps/Paridad/Bits*. En el menú emergente, presionar `c` para establecer el baud rate en 9600. Presionar `enter` para salir.
 5. Presionar `f` para establecer *Control de Flujo por Hardware* en `No`.
 6. Presionar `esc` para salir de la configuración del puerto serie.

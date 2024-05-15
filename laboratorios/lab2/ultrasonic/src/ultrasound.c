@@ -2,8 +2,8 @@
 #include "utils.h"
 
 // MACROS
-#define TRIGGER_PIN 1
-#define ECHO_PIN 2
+#define TRIGGER_PIN 0
+#define ECHO_PIN 1
 #define TRIGGER_PULSE_WIDE_US 10
 #define TIME_OUT_US 36000
 
@@ -16,7 +16,6 @@ volatile unsigned char *pin_b = (unsigned char *)0x23;
 void ports_init() {
   *(puerto_b) &= 0;
   *(ddr_b) |= 0b00000001;
-  *(puerto_b) &= 0;
 }
 
 void start_ranging() {
