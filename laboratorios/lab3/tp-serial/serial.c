@@ -15,7 +15,7 @@
 
 #define USART_BAUDRATE 9600
 #define BAUDRATE_PRESCALE 0b01100111
-#define INIT 0b00000011
+#define INIT 0b00000110
 #define EN_RX_TX 0b00011000
 
 typedef struct {
@@ -38,11 +38,13 @@ void serial_init() {
 }
 
 void serial_put_char(char c) {
-  while (!get_bit(&(puerto_serial->status_control_a), 5));
+  while (!get_bit(&(puerto_serial->status_control_a), 5))
+    ;
   puerto_serial->data_es = c;
 }
 
 char serial_get_char(void) {
-  while (!get_bit(&(puerto_serial->status_control_a), 7));
+  while (!get_bit(&(puerto_serial->status_control_a), 7))
+    ;
   return puerto_serial->data_es;
 }
