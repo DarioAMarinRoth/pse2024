@@ -1,6 +1,6 @@
 CC=avr-gcc
-OBJETOS=main.o serial.o operations.o
-APP=serial-app
+OBJETOS=main.o adc.o operations.o
+APP=adc-app
 CFLAGS=-Os -DF_CPU=16000000UL -mmcu=atmega328p 
 LDFLAGS=-mmcu=atmega328p
 FIRMWARE=imagen.hex
