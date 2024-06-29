@@ -14,6 +14,10 @@
 
 #define CHANNEL_MASK 0b00000111
 
+#define REF_5V 1
+#define REF_1_1V 2
+#define REF_EXTERNAL 3
+
 // CONTROL AND STATUS
 #define ADEN 7
 #define ADSC 6
@@ -37,9 +41,12 @@
 #define ENABLE (1 << ADEN)
 #define PRESCALER_128 (0b111 << ADPS0)
 #define START_CONVERSION (1 << ADSC)
-#define EXTERNAL_CAPACITOR (0b01 << REFS0)
+#define EXTERNAL_REF (0b00 << REFS0)
+#define INTERNAL_VCC (0b01 << REFS0)
+#define INTERNAL_1_1V (0b11 << REFS0)
 
-typedef struct {
+typedef struct
+{
   uint8_t data_l;
   uint8_t data_h;
   uint8_t control_status_a;
@@ -52,13 +59,34 @@ typedef struct {
 
 adc_t *adc = (adc_t *)0x78;
 
-void adc_init() {
-  adc->multiplexer_selection = EXTERNAL_CAPACITOR;
+void
+adc_init ()
+{
   adc->control_status_a = ENABLE | PRESCALER_128;
 }
 
-int adc_get(char input) {
-  adc->multiplexer_selection |= (input & CHANNEL_MASK);
+int
+adc_get (char channel, char ref)
+{
+  int result;
+
+  switch (ref)
+    {
+    case REF_EXTERNAL:
+      adc->multiplexer_selection = EXTERNAL_REF;
+      break;
+    case REF_1_1V:
+      adc->multiplexer_selection = INTERNAL_1_1V;
+    default:
+      adc->multiplexer_selection = INTERNAL_VCC;
+      break;
+    }
+
+  adc->multiplexer_selection |= (channel & CHANNEL_MASK);
   adc->control_status_a |= START_CONVERSION;
-  while (!get_bit(&(adc->control_status_a), ADIF));
+  while ((adc->control_status_a) & (1 << START_CONVERSION))
+    ;
+  result = adc->data_l;
+  result |= (adc->data_h << 8);
+  return result;
 }

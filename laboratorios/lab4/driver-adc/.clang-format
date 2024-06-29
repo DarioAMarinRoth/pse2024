@@ -1,0 +1,46 @@
+# Archivo de estilo personalizado para ClangFormat
+
+# Ancho máximo de línea
+ColumnLimit: 80
+
+# Estilo de indentación (tabulaciones o espacios)
+UseTab: Always
+TabWidth: 8
+
+# Estilo de colocación de llaves
+BraceWrapping:
+  AfterFunction: false
+  AfterClass: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterEnum: true
+  AfterNamespace: true
+  AfterControlStatement: false
+  AfterLambda: false
+  AfterExternBlock: false
+  BeforeCatch: false
+  BeforeElse: false
+  IndentBraces: false
+  SplitEmptyFunction: true
+
+# Espaciado alrededor de los operadores
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpacesInAngles: false
+SpacesInContainerLiterals: false
+SpacesInCStyleCastParentheses: false
+SpacesInParentheses: false
+
+# Desactivar la sangría específica para switch case
+IndentCaseLabels: false
+
+# Espacios alrededor del operador ternario
+SpacesAroundConditionalOperator: true
+
+# No espacios después de operadores unitarios
+SpaceAfterCStyleCast: false
+SpaceAfterTemplateKeyword: false
+SpaceAfterTemplateArgument: false
+
+# No espacios entre el operador unitario ++ o -- y el operando
+SpaceBeforePostfixUnaryOperator: false
