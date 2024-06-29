@@ -1,5 +1,5 @@
 CC=avr-gcc
-OBJETOS=main.o timer.o operations.o
+OBJETOS=main.o timer.o serial.o
 APP=timer-app
 CFLAGS=-Os -DF_CPU=16000000UL -mmcu=atmega328p 
 LDFLAGS=-mmcu=atmega328p
